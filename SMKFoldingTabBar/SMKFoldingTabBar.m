@@ -501,7 +501,7 @@
                                             leadSpacing:(self.leftLeadSpacing ? self.leftLeadSpacing : 8)
                                             tailSpacing: (self.leftTailSpacing ? self.leftTailSpacing : 8) ];
     [self.leftButtonsArray mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(self.rightContentView);
+        make.centerY.mas_equalTo(self.leftContentView);
         make.height.mas_equalTo((self.leftButtonHeight > 0 ? self.leftButtonHeight : 32));
     }];
     [self.leftContentView layoutIfNeeded];
@@ -519,7 +519,7 @@
     for (NSInteger index = 0; index < count; index++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.backgroundColor = self.leftBackColor;
-        [button setImage:[leftImagesArray objectAtIndex:index] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:[leftImagesArray objectAtIndex:index]] forState:UIControlStateNormal];
         button.titleLabel.font = self.textFont;
         [button setTitleColor:self.leftTextColor forState:UIControlStateNormal];
         [button addTarget:self action:@selector(leftButtonTouchAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -533,7 +533,7 @@
                                             leadSpacing:(self.leftLeadSpacing ? self.leftLeadSpacing : 8)
                                             tailSpacing: (self.leftTailSpacing ? self.leftTailSpacing : 8) ];
     [self.leftButtonsArray mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(self.rightContentView);
+        make.centerY.mas_equalTo(self.leftContentView);
         make.height.mas_equalTo((self.leftButtonHeight > 0 ? self.leftButtonHeight : 32));
     }];
     [self.leftContentView layoutIfNeeded];
@@ -582,7 +582,7 @@
     for (NSInteger index = 0; index < count; index++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.backgroundColor = self.rightBackColor;
-        [button setImage:[rightImagesArray objectAtIndex:index] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:[rightImagesArray objectAtIndex:index]] forState:UIControlStateNormal];
         button.titleLabel.font = self.textFont;
         [button setTitleColor:self.rightTextColor forState:UIControlStateNormal];
         [button addTarget:self action:@selector(rightButtonTouchAction:) forControlEvents:UIControlEventTouchUpInside];

@@ -73,15 +73,15 @@
 }
 
 - (void)testUI {
-//    self.centerButton.backgroundColor = [UIColor orangeColor];
-//    self.leftContentView.backgroundColor = [UIColor greenColor];
-//    self.rightContentView.backgroundColor = [UIColor brownColor];
+    //    self.centerButton.backgroundColor = [UIColor orangeColor];
+    //    self.leftContentView.backgroundColor = [UIColor greenColor];
+    //    self.rightContentView.backgroundColor = [UIColor brownColor];
 }
 
 #pragma mark --------------------  事件  --------------------
 
 - (void)centerButtonTouchAction:(UIButton *)button {
-
+    
     if (self.isSelectedCenterButton) {
         
         if (self.delegate && [self.delegate respondsToSelector:@selector(tabBarWillCollapse:)]) {
@@ -91,7 +91,7 @@
         [self hideExtraLeftItem];
         [self hideExtraRighttem];
         [self animationForCenterButtonExpand:nil];
-
+        
         if (self.delegate && [self.delegate respondsToSelector:@selector(tabBarDidCollapse:)]) {
             [self.delegate tabBarDidCollapse:self];
         }
@@ -199,11 +199,11 @@
         button.layer.anchorPoint = CGPointMake(0.5, 0.5);
         CGAffineTransform translation = CGAffineTransformMakeTranslation(lastButton.x - button.x, 0);
         button.transform = translation;
-//        CGAffineTransform scale = CGAffineTransformMakeScale(0.4, 0.4);
-//        button.transform = CGAffineTransformConcat(translation, scale);
+        //        CGAffineTransform scale = CGAffineTransformMakeScale(0.4, 0.4);
+        //        button.transform = CGAffineTransformConcat(translation, scale);
     }
     [self animationForExtraLeftItem:self.leftButtonsArray.count - 1];
-
+    
 }
 
 - (void)showExtraRightItem {
@@ -214,8 +214,8 @@
         button.layer.anchorPoint = CGPointMake(0.5, 0.5);
         CGAffineTransform translation = CGAffineTransformMakeTranslation(button.x - firstButton.x, 0);
         button.transform = translation;
-//        CGAffineTransform scale = CGAffineTransformMakeScale(0.4, 0.4);
-//        button.transform = CGAffineTransformConcat(translation, scale);
+        //        CGAffineTransform scale = CGAffineTransformMakeScale(0.4, 0.4);
+        //        button.transform = CGAffineTransformConcat(translation, scale);
     }
     [self animationForExtraRightItem:0];
 }
@@ -309,7 +309,7 @@
     CAAnimation *anmi = [[self class] groupWithAnimations:@[scaleX, scaleY] andDuration:0.4];
     [view.layer addAnimation:anmi forKey:@"anmi"];
     [view.layer addAnimation:rotation forKey:@"rotation"];
-
+    
 }
 
 + (CAAnimationGroup *)groupWithAnimations:(NSArray *)animations andDuration:(CFTimeInterval)duration {
@@ -501,7 +501,7 @@
                                             leadSpacing:(self.leftLeadSpacing ? self.leftLeadSpacing : 8)
                                             tailSpacing: (self.leftTailSpacing ? self.leftTailSpacing : 8) ];
     [self.leftButtonsArray mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(self.rightContentView);
+        make.centerY.mas_equalTo(self.leftContentView);
         make.height.mas_equalTo((self.leftButtonHeight > 0 ? self.leftButtonHeight : 32));
     }];
     [self.leftContentView layoutIfNeeded];
@@ -519,7 +519,7 @@
     for (NSInteger index = 0; index < count; index++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.backgroundColor = self.leftBackColor;
-        [button setImage:[leftImagesArray objectAtIndex:index] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:[leftImagesArray objectAtIndex:index]] forState:UIControlStateNormal];
         button.titleLabel.font = self.textFont;
         [button setTitleColor:self.leftTextColor forState:UIControlStateNormal];
         [button addTarget:self action:@selector(leftButtonTouchAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -533,7 +533,7 @@
                                             leadSpacing:(self.leftLeadSpacing ? self.leftLeadSpacing : 8)
                                             tailSpacing: (self.leftTailSpacing ? self.leftTailSpacing : 8) ];
     [self.leftButtonsArray mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(self.rightContentView);
+        make.centerY.mas_equalTo(self.leftContentView);
         make.height.mas_equalTo((self.leftButtonHeight > 0 ? self.leftButtonHeight : 32));
     }];
     [self.leftContentView layoutIfNeeded];
@@ -582,7 +582,7 @@
     for (NSInteger index = 0; index < count; index++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.backgroundColor = self.rightBackColor;
-        [button setImage:[rightImagesArray objectAtIndex:index] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:[rightImagesArray objectAtIndex:index]] forState:UIControlStateNormal];
         button.titleLabel.font = self.textFont;
         [button setTitleColor:self.rightTextColor forState:UIControlStateNormal];
         [button addTarget:self action:@selector(rightButtonTouchAction:) forControlEvents:UIControlEventTouchUpInside];
