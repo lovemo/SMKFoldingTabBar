@@ -78,248 +78,6 @@
 //    self.rightContentView.backgroundColor = [UIColor brownColor];
 }
 
-#pragma mark --------------------  geter  --------------------
-
-- (SMKFoldingTabBarState)state {
-    return self.isSelectedCenterButton;
-}
-
-#pragma mark --------------------  setter  --------------------
-
-- (void)setIsRoundExtraItem:(BOOL)isRoundExtraItem {
-    _isRoundExtraItem = isRoundExtraItem;
-    
-    [self layoutIfNeeded];
-    [self enumerateObjects:self.leftButtonsArray usingBlock:^(UIButton *button) {
-        button.layer.cornerRadius = button.height * 0.5;
-        button.layer.masksToBounds = isRoundExtraItem;
-    }];
-    [self enumerateObjects:self.rightButtonsArray usingBlock:^(UIButton *button) {
-        button.layer.cornerRadius = button.height * 0.5;
-        button.layer.masksToBounds = isRoundExtraItem;
-    }];
-}
-
-- (void)setCenterButtonTextColor:(UIColor *)centerButtonTextColor {
-    _centerButtonTextColor = centerButtonTextColor;
-    [self.centerButton setTitleColor:centerButtonTextColor forState:UIControlStateNormal];
-}
-
-- (void)setCenterButtonTextFont:(UIFont *)centerButtonTextFont {
-    _centerButtonTextFont = centerButtonTextFont;
-    self.centerButton.titleLabel.font = centerButtonTextFont;
-}
-
-- (void)setCenterButtonText:(NSString *)centerButtonText {
-    _centerButtonTextFont = [centerButtonText copy];
-    [self.centerButton setTitle:centerButtonText forState:UIControlStateNormal];
-}
-
-- (void)setCenterButtonImage:(UIImage *)centerButtonImage {
-    _centerButtonImage = centerButtonImage;
-    [self.centerButton setImage:centerButtonImage forState:UIControlStateNormal];
-}
-
-- (void)setCenterButtonBackColor:(UIColor *)centerButtonBackColor {
-    _centerButtonBackColor = centerButtonBackColor;
-    self.centerButton.backgroundColor = centerButtonBackColor;
-}
-
-- (void)setTextFont:(UIFont *)textFont {
-    _textFont = textFont;
-    [self enumerateObjects:self.leftButtonsArray usingBlock:^(UIButton *button) {
-        button.titleLabel.font = textFont;
-    }];
-    [self enumerateObjects:self.rightButtonsArray usingBlock:^(UIButton *button) {
-        button.titleLabel.font = textFont;
-    }];
-}
-
-- (void)setLeftTextColor:(UIColor *)leftTextColor {
-    _leftTextColor = leftTextColor;
-    [self enumerateObjects:self.leftButtonsArray usingBlock:^(UIButton *button) {
-        [button setTitleColor:leftTextColor forState:UIControlStateNormal];
-    }];
-}
-
-- (void)setRightTextColor:(UIColor *)rightTextColor {
-    _rightTextColor = rightTextColor;
-    [self enumerateObjects:self.rightButtonsArray usingBlock:^(UIButton *button) {
-        [button setTitleColor:rightTextColor forState:UIControlStateNormal];
-    }];
-}
-
-- (void)setLeftBackColor:(UIColor *)leftBackColor {
-    _leftBackColor = leftBackColor;
-    [self enumerateObjects:self.leftButtonsArray usingBlock:^(UIButton *button) {
-        button.backgroundColor = leftBackColor;
-    }];
-}
-
-- (void)setRightBackColor:(UIColor *)rightBackColor {
-    _rightBackColor = rightBackColor;
-    [self enumerateObjects:self.rightButtonsArray usingBlock:^(UIButton *button) {
-        button.backgroundColor = rightBackColor;
-    }];
-}
-
-- (void)setIsRoundCenterButton:(BOOL)isRoundCenterButton {
-    _isRoundCenterButton = isRoundCenterButton;
-    
-    if (isRoundCenterButton) {
-        [self layoutIfNeeded];
-
-        self.centerButton.layer.cornerRadius = self.centerButton.height * 0.5;
-        self.centerButton.layer.masksToBounds = YES;
-    } else {
-        self.centerButton.layer.masksToBounds = NO;
-    }
-}
-
-- (void)setCenterButtonCornerRadius:(CGFloat)centerButtonCornerRadius {
-    _centerButtonCornerRadius = centerButtonCornerRadius;
-    self.centerButton.layer.cornerRadius = centerButtonCornerRadius;
-    self.centerButton.layer.masksToBounds = YES;
-}
-
-- (void)setCenterButtonWidth:(CGFloat)centerButtonWidth {
-    _centerButtonWidth = centerButtonWidth;
-    [self layoutCenterButton];
-    self.isRoundCenterButton = self.isRoundCenterButton;
-}
-
-- (void)setCenterButtonHeight:(CGFloat)centerButtonHeight {
-    _centerButtonHeight = centerButtonHeight;
-    [self layoutCenterButton];
-    self.isRoundCenterButton = self.isRoundCenterButton;
-}
-
-- (void)setLeftTitlesArray:(NSArray *)leftTitlesArray {
-    
-    _leftTitlesArray = [leftTitlesArray copy];
-    
-    [self.leftButtonsArray removeAllObjects];
-    [self.leftContentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    
-    NSInteger count = leftTitlesArray.count;
-    
-    for (NSInteger index = 0; index < count; index++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.backgroundColor = self.leftBackColor;
-        [button setTitle:[leftTitlesArray objectAtIndex:index] forState:UIControlStateNormal];
-        button.titleLabel.font = self.textFont;
-        [button setTitleColor:self.leftTextColor forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(leftButtonTouchAction:) forControlEvents:UIControlEventTouchUpInside];
-        
-        [self.leftContentView addSubview:button];
-        [self.leftButtonsArray addObject:button];
-    }
-    
-    [self.leftButtonsArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal
-                                    withFixedItemLength:(self.leftItemLength ? self.leftItemLength : 32)
-                                            leadSpacing:(self.leftLeadSpacing ? self.leftLeadSpacing : 8)
-                                            tailSpacing: (self.leftTailSpacing ? self.leftTailSpacing : 8) ];
-    [self.leftButtonsArray mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(self.rightContentView);
-        make.height.mas_equalTo((self.leftButtonHeight > 0 ? self.leftButtonHeight : 32));
-    }];
-    [self.leftContentView layoutIfNeeded];
-
-}
-
-- (void)setLeftImagesArray:(NSArray *)leftImagesArray {
-    _leftImagesArray = [leftImagesArray copy];
-    
-    [self.leftButtonsArray removeAllObjects];
-    [self.leftContentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    
-    NSInteger count = leftImagesArray.count;
-    
-    for (NSInteger index = 0; index < count; index++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.backgroundColor = self.leftBackColor;
-        [button setImage:[leftImagesArray objectAtIndex:index] forState:UIControlStateNormal];
-        button.titleLabel.font = self.textFont;
-        [button setTitleColor:self.leftTextColor forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(leftButtonTouchAction:) forControlEvents:UIControlEventTouchUpInside];
-        
-        [self.leftContentView addSubview:button];
-        [self.leftButtonsArray addObject:button];
-    }
-    
-    [self.leftButtonsArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal
-                                    withFixedItemLength:(self.leftItemLength ? self.leftItemLength : 32)
-                                            leadSpacing:(self.leftLeadSpacing ? self.leftLeadSpacing : 8)
-                                            tailSpacing: (self.leftTailSpacing ? self.leftTailSpacing : 8) ];
-    [self.leftButtonsArray mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(self.rightContentView);
-        make.height.mas_equalTo((self.leftButtonHeight > 0 ? self.leftButtonHeight : 32));
-    }];
-    [self.leftContentView layoutIfNeeded];
-}
-
-- (void)setRightTitlesArray:(NSArray *)rightTitlesArray {
-    
-    _rightTitlesArray = [rightTitlesArray copy];
-    
-    [self.rightButtonsArray removeAllObjects];
-    [self.rightContentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    
-    NSInteger count = rightTitlesArray.count;
-    
-    for (NSInteger index = 0; index < count; index++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.backgroundColor = self.rightBackColor;
-        [button setTitle:[rightTitlesArray objectAtIndex:index] forState:UIControlStateNormal];
-        button.titleLabel.font = self.textFont;
-        [button setTitleColor:self.rightTextColor forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(rightButtonTouchAction:) forControlEvents:UIControlEventTouchUpInside];
-        
-        [self.rightContentView addSubview:button];
-        [self.rightButtonsArray addObject:button];
-    }
-    
-    [self.rightButtonsArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal
-                                     withFixedItemLength:(self.rightItemLength ? self.rightItemLength : 32)
-                                             leadSpacing:(self.rightLeadSpacing ? self.rightLeadSpacing : 8)
-                                             tailSpacing: (self.rightTailSpacing ? self.rightTailSpacing : 8) ];
-    [self.rightButtonsArray mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(self.rightContentView);
-        make.height.mas_equalTo((self.rightButtonHeight > 0 ? self.rightButtonHeight : 32));
-    }];
-
-}
-
-- (void)setRightImagesArray:(NSArray *)rightImagesArray {
-    _rightImagesArray = [rightImagesArray copy];
-    
-    [self.rightButtonsArray removeAllObjects];
-    [self.rightContentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    
-    NSInteger count = rightImagesArray.count;
-    
-    for (NSInteger index = 0; index < count; index++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.backgroundColor = self.rightBackColor;
-        [button setImage:[rightImagesArray objectAtIndex:index] forState:UIControlStateNormal];
-        button.titleLabel.font = self.textFont;
-        [button setTitleColor:self.rightTextColor forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(rightButtonTouchAction:) forControlEvents:UIControlEventTouchUpInside];
-        
-        [self.rightContentView addSubview:button];
-        [self.rightButtonsArray addObject:button];
-    }
-    
-    [self.rightButtonsArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal
-                                     withFixedItemLength:(self.rightItemLength ? self.rightItemLength : 32)
-                                             leadSpacing:(self.rightLeadSpacing ? self.rightLeadSpacing : 8)
-                                             tailSpacing: (self.rightTailSpacing ? self.rightTailSpacing : 8) ];
-    [self.rightButtonsArray mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(self.rightContentView);
-        make.height.mas_equalTo((self.rightButtonHeight > 0 ? self.rightButtonHeight : 32));
-    }];
-}
-
 #pragma mark --------------------  事件  --------------------
 
 - (void)centerButtonTouchAction:(UIButton *)button {
@@ -377,36 +135,6 @@
         [self.delegate tabBar:self didSelectRightItemAtIndex:index];
     }
     !self.didSelectRightItemBlock ?: self.didSelectRightItemBlock(index);
-}
-
-#pragma mark --------------------  布局  --------------------
-
-- (void)layoutUI {
-    
-    [self layoutCenterButton];
-    [self layoutContentView];
-    
-}
-
-- (void)layoutCenterButton {
-    [self.centerButton mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_equalTo(self);
-        self.centerButtonWidth ? make.width.mas_equalTo(self.centerButtonWidth) : make.width.mas_equalTo(self).multipliedBy(0.3);
-        self.centerButtonHeight ? make.height.mas_equalTo(self.centerButtonHeight) : make.height.mas_equalTo(self.mas_height).multipliedBy(1.0);
-        make.centerY.mas_equalTo(self);
-    }];
-}
-
-- (void)layoutContentView {
-    [self.leftContentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.bottom.mas_equalTo(self);
-        make.right.mas_equalTo(self.centerButton.mas_left);
-    }];
-    
-    [self.rightContentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.top.bottom.mas_equalTo(self);
-        make.left.mas_equalTo(self.centerButton.mas_right);
-    }];
 }
 
 #pragma mark --------------------  动画  --------------------
@@ -599,6 +327,278 @@
     for (id object in array) {
         !block ?: block(object);;
     }
+}
+
+#pragma mark --------------------  布局  --------------------
+
+- (void)layoutUI {
+    
+    [self layoutCenterButton];
+    [self layoutContentView];
+    
+}
+
+- (void)layoutCenterButton {
+    [self.centerButton mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(self);
+        self.centerButtonWidth ? make.width.mas_equalTo(self.centerButtonWidth) : make.width.mas_equalTo(self).multipliedBy(0.3);
+        self.centerButtonHeight ? make.height.mas_equalTo(self.centerButtonHeight) : make.height.mas_equalTo(self.mas_height).multipliedBy(1.0);
+        make.centerY.mas_equalTo(self);
+    }];
+}
+
+- (void)layoutContentView {
+    [self.leftContentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.bottom.mas_equalTo(self);
+        make.right.mas_equalTo(self.centerButton.mas_left);
+    }];
+    
+    [self.rightContentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.top.bottom.mas_equalTo(self);
+        make.left.mas_equalTo(self.centerButton.mas_right);
+    }];
+}
+
+#pragma mark --------------------  geter  --------------------
+
+- (SMKFoldingTabBarState)state {
+    return self.isSelectedCenterButton;
+}
+
+#pragma mark --------------------  setter  --------------------
+
+- (void)setIsRoundExtraItem:(BOOL)isRoundExtraItem {
+    _isRoundExtraItem = isRoundExtraItem;
+    
+    [self layoutIfNeeded];
+    [self enumerateObjects:self.leftButtonsArray usingBlock:^(UIButton *button) {
+        button.layer.cornerRadius = button.height * 0.5;
+        button.layer.masksToBounds = isRoundExtraItem;
+    }];
+    [self enumerateObjects:self.rightButtonsArray usingBlock:^(UIButton *button) {
+        button.layer.cornerRadius = button.height * 0.5;
+        button.layer.masksToBounds = isRoundExtraItem;
+    }];
+}
+
+- (void)setCenterButtonTextColor:(UIColor *)centerButtonTextColor {
+    _centerButtonTextColor = centerButtonTextColor;
+    [self.centerButton setTitleColor:centerButtonTextColor forState:UIControlStateNormal];
+}
+
+- (void)setCenterButtonTextFont:(UIFont *)centerButtonTextFont {
+    _centerButtonTextFont = centerButtonTextFont;
+    self.centerButton.titleLabel.font = centerButtonTextFont;
+}
+
+- (void)setCenterButtonText:(NSString *)centerButtonText {
+    _centerButtonTextFont = [centerButtonText copy];
+    [self.centerButton setTitle:centerButtonText forState:UIControlStateNormal];
+}
+
+- (void)setCenterButtonImage:(UIImage *)centerButtonImage {
+    _centerButtonImage = centerButtonImage;
+    [self.centerButton setImage:centerButtonImage forState:UIControlStateNormal];
+}
+
+- (void)setCenterButtonBackColor:(UIColor *)centerButtonBackColor {
+    _centerButtonBackColor = centerButtonBackColor;
+    self.centerButton.backgroundColor = centerButtonBackColor;
+}
+
+- (void)setTextFont:(UIFont *)textFont {
+    _textFont = textFont;
+    [self enumerateObjects:self.leftButtonsArray usingBlock:^(UIButton *button) {
+        button.titleLabel.font = textFont;
+    }];
+    [self enumerateObjects:self.rightButtonsArray usingBlock:^(UIButton *button) {
+        button.titleLabel.font = textFont;
+    }];
+}
+
+- (void)setLeftTextColor:(UIColor *)leftTextColor {
+    _leftTextColor = leftTextColor;
+    [self enumerateObjects:self.leftButtonsArray usingBlock:^(UIButton *button) {
+        [button setTitleColor:leftTextColor forState:UIControlStateNormal];
+    }];
+}
+
+- (void)setRightTextColor:(UIColor *)rightTextColor {
+    _rightTextColor = rightTextColor;
+    [self enumerateObjects:self.rightButtonsArray usingBlock:^(UIButton *button) {
+        [button setTitleColor:rightTextColor forState:UIControlStateNormal];
+    }];
+}
+
+- (void)setLeftBackColor:(UIColor *)leftBackColor {
+    _leftBackColor = leftBackColor;
+    [self enumerateObjects:self.leftButtonsArray usingBlock:^(UIButton *button) {
+        button.backgroundColor = leftBackColor;
+    }];
+}
+
+- (void)setRightBackColor:(UIColor *)rightBackColor {
+    _rightBackColor = rightBackColor;
+    [self enumerateObjects:self.rightButtonsArray usingBlock:^(UIButton *button) {
+        button.backgroundColor = rightBackColor;
+    }];
+}
+
+- (void)setIsRoundCenterButton:(BOOL)isRoundCenterButton {
+    _isRoundCenterButton = isRoundCenterButton;
+    
+    if (isRoundCenterButton) {
+        [self layoutIfNeeded];
+        
+        self.centerButton.layer.cornerRadius = self.centerButton.height * 0.5;
+        self.centerButton.layer.masksToBounds = YES;
+    } else {
+        self.centerButton.layer.masksToBounds = NO;
+    }
+}
+
+- (void)setCenterButtonCornerRadius:(CGFloat)centerButtonCornerRadius {
+    _centerButtonCornerRadius = centerButtonCornerRadius;
+    self.centerButton.layer.cornerRadius = centerButtonCornerRadius;
+    self.centerButton.layer.masksToBounds = YES;
+}
+
+- (void)setCenterButtonWidth:(CGFloat)centerButtonWidth {
+    _centerButtonWidth = centerButtonWidth;
+    [self layoutCenterButton];
+    self.isRoundCenterButton = self.isRoundCenterButton;
+}
+
+- (void)setCenterButtonHeight:(CGFloat)centerButtonHeight {
+    _centerButtonHeight = centerButtonHeight;
+    [self layoutCenterButton];
+    self.isRoundCenterButton = self.isRoundCenterButton;
+}
+
+- (void)setLeftTitlesArray:(NSArray *)leftTitlesArray {
+    
+    _leftTitlesArray = [leftTitlesArray copy];
+    
+    [self.leftButtonsArray removeAllObjects];
+    [self.leftContentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+    NSInteger count = leftTitlesArray.count;
+    
+    for (NSInteger index = 0; index < count; index++) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.backgroundColor = self.leftBackColor;
+        [button setTitle:[leftTitlesArray objectAtIndex:index] forState:UIControlStateNormal];
+        button.titleLabel.font = self.textFont;
+        [button setTitleColor:self.leftTextColor forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(leftButtonTouchAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.leftContentView addSubview:button];
+        [self.leftButtonsArray addObject:button];
+    }
+    
+    [self.leftButtonsArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal
+                                    withFixedItemLength:(self.leftItemLength ? self.leftItemLength : 32)
+                                            leadSpacing:(self.leftLeadSpacing ? self.leftLeadSpacing : 8)
+                                            tailSpacing: (self.leftTailSpacing ? self.leftTailSpacing : 8) ];
+    [self.leftButtonsArray mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(self.rightContentView);
+        make.height.mas_equalTo((self.leftButtonHeight > 0 ? self.leftButtonHeight : 32));
+    }];
+    [self.leftContentView layoutIfNeeded];
+    
+}
+
+- (void)setLeftImagesArray:(NSArray *)leftImagesArray {
+    _leftImagesArray = [leftImagesArray copy];
+    
+    [self.leftButtonsArray removeAllObjects];
+    [self.leftContentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+    NSInteger count = leftImagesArray.count;
+    
+    for (NSInteger index = 0; index < count; index++) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.backgroundColor = self.leftBackColor;
+        [button setImage:[leftImagesArray objectAtIndex:index] forState:UIControlStateNormal];
+        button.titleLabel.font = self.textFont;
+        [button setTitleColor:self.leftTextColor forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(leftButtonTouchAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.leftContentView addSubview:button];
+        [self.leftButtonsArray addObject:button];
+    }
+    
+    [self.leftButtonsArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal
+                                    withFixedItemLength:(self.leftItemLength ? self.leftItemLength : 32)
+                                            leadSpacing:(self.leftLeadSpacing ? self.leftLeadSpacing : 8)
+                                            tailSpacing: (self.leftTailSpacing ? self.leftTailSpacing : 8) ];
+    [self.leftButtonsArray mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(self.rightContentView);
+        make.height.mas_equalTo((self.leftButtonHeight > 0 ? self.leftButtonHeight : 32));
+    }];
+    [self.leftContentView layoutIfNeeded];
+}
+
+- (void)setRightTitlesArray:(NSArray *)rightTitlesArray {
+    
+    _rightTitlesArray = [rightTitlesArray copy];
+    
+    [self.rightButtonsArray removeAllObjects];
+    [self.rightContentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+    NSInteger count = rightTitlesArray.count;
+    
+    for (NSInteger index = 0; index < count; index++) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.backgroundColor = self.rightBackColor;
+        [button setTitle:[rightTitlesArray objectAtIndex:index] forState:UIControlStateNormal];
+        button.titleLabel.font = self.textFont;
+        [button setTitleColor:self.rightTextColor forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(rightButtonTouchAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.rightContentView addSubview:button];
+        [self.rightButtonsArray addObject:button];
+    }
+    
+    [self.rightButtonsArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal
+                                     withFixedItemLength:(self.rightItemLength ? self.rightItemLength : 32)
+                                             leadSpacing:(self.rightLeadSpacing ? self.rightLeadSpacing : 8)
+                                             tailSpacing: (self.rightTailSpacing ? self.rightTailSpacing : 8) ];
+    [self.rightButtonsArray mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(self.rightContentView);
+        make.height.mas_equalTo((self.rightButtonHeight > 0 ? self.rightButtonHeight : 32));
+    }];
+    
+}
+
+- (void)setRightImagesArray:(NSArray *)rightImagesArray {
+    _rightImagesArray = [rightImagesArray copy];
+    
+    [self.rightButtonsArray removeAllObjects];
+    [self.rightContentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+    NSInteger count = rightImagesArray.count;
+    
+    for (NSInteger index = 0; index < count; index++) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.backgroundColor = self.rightBackColor;
+        [button setImage:[rightImagesArray objectAtIndex:index] forState:UIControlStateNormal];
+        button.titleLabel.font = self.textFont;
+        [button setTitleColor:self.rightTextColor forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(rightButtonTouchAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.rightContentView addSubview:button];
+        [self.rightButtonsArray addObject:button];
+    }
+    
+    [self.rightButtonsArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal
+                                     withFixedItemLength:(self.rightItemLength ? self.rightItemLength : 32)
+                                             leadSpacing:(self.rightLeadSpacing ? self.rightLeadSpacing : 8)
+                                             tailSpacing: (self.rightTailSpacing ? self.rightTailSpacing : 8) ];
+    [self.rightButtonsArray mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(self.rightContentView);
+        make.height.mas_equalTo((self.rightButtonHeight > 0 ? self.rightButtonHeight : 32));
+    }];
 }
 
 #pragma mark --------------------  懒加载  --------------------
