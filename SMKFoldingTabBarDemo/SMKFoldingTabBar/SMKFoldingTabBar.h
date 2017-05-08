@@ -154,11 +154,11 @@ typedef NS_ENUM(NSUInteger, SMKFoldingTabBarState) {
  */
 @property (nonatomic, copy) void(^didSelectCenterItemBlock)(UIButton *button);
 /**
- *  触摸右边按钮
+ *  触摸左边按钮
  */
 @property (nonatomic, copy) void(^didSelectLeftItemBlock)(NSUInteger index);
 /**
- *  触摸左边按钮
+ *  触摸右边按钮
  */
 @property (nonatomic, copy) void(^didSelectRightItemBlock)(NSUInteger index);
 

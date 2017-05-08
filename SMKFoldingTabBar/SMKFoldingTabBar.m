@@ -496,14 +496,23 @@
         [self.leftButtonsArray addObject:button];
     }
     
-    [self.leftButtonsArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal
-                                    withFixedItemLength:(self.leftItemLength ? self.leftItemLength : 32)
-                                            leadSpacing:(self.leftLeadSpacing ? self.leftLeadSpacing : 8)
-                                            tailSpacing: (self.leftTailSpacing ? self.leftTailSpacing : 8) ];
-    [self.leftButtonsArray mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(self.leftContentView);
-        make.height.mas_equalTo((self.leftButtonHeight > 0 ? self.leftButtonHeight : 32));
-    }];
+    if (count > 1) {
+        [self.leftButtonsArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal
+                                        withFixedItemLength:(self.leftItemLength ? self.leftItemLength : 32)
+                                                leadSpacing:(self.leftLeadSpacing ? self.leftLeadSpacing : 8)
+                                                tailSpacing: (self.leftTailSpacing ? self.leftTailSpacing : 8) ];
+        [self.leftButtonsArray mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.mas_equalTo(self.leftContentView);
+            make.height.mas_equalTo((self.leftButtonHeight > 0 ? self.leftButtonHeight : 32));
+        }];
+    } else if (count == 1) {
+        [self.leftButtonsArray.firstObject mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.mas_equalTo(self.leftContentView);
+            make.height.mas_equalTo((self.leftButtonHeight > 0 ? self.leftButtonHeight : 32));
+            make.width.mas_equalTo((self.leftItemLength > 0 ? self.leftItemLength : 32));
+            make.right.mas_equalTo(self.leftContentView).offset(-(self.leftTailSpacing ? self.leftTailSpacing : 8));
+        }];
+    }
     [self.leftContentView layoutIfNeeded];
     
 }
@@ -528,14 +537,23 @@
         [self.leftButtonsArray addObject:button];
     }
     
-    [self.leftButtonsArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal
-                                    withFixedItemLength:(self.leftItemLength ? self.leftItemLength : 32)
-                                            leadSpacing:(self.leftLeadSpacing ? self.leftLeadSpacing : 8)
-                                            tailSpacing: (self.leftTailSpacing ? self.leftTailSpacing : 8) ];
-    [self.leftButtonsArray mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(self.leftContentView);
-        make.height.mas_equalTo((self.leftButtonHeight > 0 ? self.leftButtonHeight : 32));
-    }];
+    if (count > 1) {
+        [self.leftButtonsArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal
+                                        withFixedItemLength:(self.leftItemLength ? self.leftItemLength : 32)
+                                                leadSpacing:(self.leftLeadSpacing ? self.leftLeadSpacing : 8)
+                                                tailSpacing: (self.leftTailSpacing ? self.leftTailSpacing : 8) ];
+        [self.leftButtonsArray mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.mas_equalTo(self.leftContentView);
+            make.height.mas_equalTo((self.leftButtonHeight > 0 ? self.leftButtonHeight : 32));
+        }];
+    } else if (count == 1) {
+        [self.leftButtonsArray.firstObject mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.mas_equalTo(self.leftContentView);
+            make.height.mas_equalTo((self.leftButtonHeight > 0 ? self.leftButtonHeight : 32));
+            make.width.mas_equalTo((self.leftItemLength > 0 ? self.leftItemLength : 32));
+            make.right.mas_equalTo(self.leftContentView).offset(-(self.leftTailSpacing ? self.leftTailSpacing : 8));
+        }];
+    }
     [self.leftContentView layoutIfNeeded];
 }
 
@@ -560,14 +578,23 @@
         [self.rightButtonsArray addObject:button];
     }
     
-    [self.rightButtonsArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal
-                                     withFixedItemLength:(self.rightItemLength ? self.rightItemLength : 32)
-                                             leadSpacing:(self.rightLeadSpacing ? self.rightLeadSpacing : 8)
-                                             tailSpacing: (self.rightTailSpacing ? self.rightTailSpacing : 8) ];
-    [self.rightButtonsArray mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(self.rightContentView);
-        make.height.mas_equalTo((self.rightButtonHeight > 0 ? self.rightButtonHeight : 32));
-    }];
+    if (count > 1) {
+        [self.rightButtonsArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal
+                                         withFixedItemLength:(self.rightItemLength ? self.rightItemLength : 32)
+                                                 leadSpacing:(self.rightLeadSpacing ? self.rightLeadSpacing : 8)
+                                                 tailSpacing: (self.rightTailSpacing ? self.rightTailSpacing : 8) ];
+        [self.rightButtonsArray mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.mas_equalTo(self.rightContentView);
+            make.height.mas_equalTo((self.rightButtonHeight > 0 ? self.rightButtonHeight : 32));
+        }];
+    } else if (count == 1) {
+        [self.rightButtonsArray.firstObject mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.mas_equalTo(self.rightContentView);
+            make.height.mas_equalTo((self.rightButtonHeight > 0 ? self.rightButtonHeight : 32));
+            make.width.mas_equalTo((self.rightItemLength > 0 ? self.rightItemLength : 32));
+            make.right.mas_equalTo(self.rightContentView).offset(-(self.rightTailSpacing ? self.rightTailSpacing : 8));
+        }];
+    }
     
 }
 
@@ -590,15 +617,23 @@
         [self.rightContentView addSubview:button];
         [self.rightButtonsArray addObject:button];
     }
-    
-    [self.rightButtonsArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal
-                                     withFixedItemLength:(self.rightItemLength ? self.rightItemLength : 32)
-                                             leadSpacing:(self.rightLeadSpacing ? self.rightLeadSpacing : 8)
-                                             tailSpacing: (self.rightTailSpacing ? self.rightTailSpacing : 8) ];
-    [self.rightButtonsArray mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(self.rightContentView);
-        make.height.mas_equalTo((self.rightButtonHeight > 0 ? self.rightButtonHeight : 32));
-    }];
+    if (count > 1) {
+        [self.rightButtonsArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal
+                                         withFixedItemLength:(self.rightItemLength ? self.rightItemLength : 32)
+                                                 leadSpacing:(self.rightLeadSpacing ? self.rightLeadSpacing : 8)
+                                                 tailSpacing: (self.rightTailSpacing ? self.rightTailSpacing : 8) ];
+        [self.rightButtonsArray mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.mas_equalTo(self.rightContentView);
+            make.height.mas_equalTo((self.rightButtonHeight > 0 ? self.rightButtonHeight : 32));
+        }];
+    } else if (count == 1) {
+        [self.rightButtonsArray.firstObject mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.mas_equalTo(self.rightContentView);
+            make.height.mas_equalTo((self.rightButtonHeight > 0 ? self.rightButtonHeight : 32));
+            make.width.mas_equalTo((self.rightItemLength > 0 ? self.rightItemLength : 32));
+            make.right.mas_equalTo(self.rightContentView).offset(-(self.rightTailSpacing ? self.rightTailSpacing : 8));
+        }];
+    }
 }
 
 #pragma mark --------------------  懒加载  --------------------
