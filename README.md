@@ -8,35 +8,39 @@ SMKFoldingTabBar - A Awesome Folding Custom View
 ---
 
 ```objc
-    SMKFoldingTabBar *foldingTabBar = [SMKFoldingTabBar foldingTabBar];
-    foldingTabBar.backgroundColor = [UIColor colorWithRed:72.f/255.f green:211.f/255.f blue:178.f/255.f alpha:1.f];
-    
-    foldingTabBar.leftTitlesArray = @[
-                                      @"One",
-                                      @"Two",
-                                      @"Thr"
-                                      ];
-    foldingTabBar.rightTitlesArray = @[
-                                       @"One",
-                                       @"Two",
-                                       @"Thr"
-                                       ];
+SMKFoldingTabBar *foldingTabBar = [SMKFoldingTabBar foldingTabBar];
     [self.view addSubview:foldingTabBar];
     [foldingTabBar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(self.view);
         make.height.mas_equalTo(49);
-        make.bottom.mas_equalTo(self.view);
+        make.centerY.mas_equalTo(self.view).multipliedBy(1.5);
     }];
     
-    foldingTabBar.centerButtonText = @"中心";
-    foldingTabBar.leftTextColor = [UIColor whiteColor];
-    foldingTabBar.rightTextColor = [UIColor whiteColor];
-    foldingTabBar.centerButtonWidth = 180;
+    foldingTabBar.leftItemLength = foldingTabBar.rightItemLength
+                                                            = foldingTabBar.leftButtonHeight
+                                                            = foldingTabBar.rightButtonHeight
+                                                            = 36;
+    foldingTabBar.leftImagesArray = @[
+                                      @"new_umsocial_sina",
+                                      @"new_umsocial_wechat",
+                                      @"new_umsocial_wechat_timeline"
+                                      ];
+    foldingTabBar.rightImagesArray = @[
+                                       @"new_umsocial_qq",
+                                       @"new_umsocial_qzone",
+                                       @"new_umsocial_wechat_favorite"
+                                       ];
+    
+    foldingTabBar.centerButtonText = @"分享";
+    foldingTabBar.centerButtonTextFont = [UIFont systemFontOfSize:16];
+    foldingTabBar.centerButtonBackColor = [UIColor blackColor];
+    foldingTabBar.centerButtonTextColor = [UIColor colorWithRed:255/255.f green:208/255.f blue:2/255.f alpha:1.f];
+    foldingTabBar.centerButtonWidth = 454 * 0.5;
     foldingTabBar.isRoundCenterButton = YES;
-    foldingTabBar.centerButtonHeight = 40;
-    foldingTabBar.leftBackColor = [UIColor colorWithRed:103.f/255.f green:71.f/255.f blue:153.f/255.f alpha:1.f];
-    foldingTabBar.rightBackColor = [UIColor colorWithRed:103.f/255.f green:71.f/255.f blue:153.f/255.f alpha:1.f];
+    foldingTabBar.centerButtonHeight = 44;
+    foldingTabBar.leftBackColor = foldingTabBar.rightBackColor = [UIColor blackColor];
     foldingTabBar.isRoundExtraItem = YES;
+    
     NSLog(@"%zd", foldingTabBar.state);
     
     [foldingTabBar setDidSelectCenterItemBlock:^(UIButton * _Nonnull button) {
@@ -51,7 +55,7 @@ SMKFoldingTabBar - A Awesome Folding Custom View
     [foldingTabBar setDidSelectRightItemBlock:^(NSUInteger index) {
         self.showTextLabel.text = [NSString stringWithFormat:@"我是右边第 %zd 个", index];
         NSLog(@"%zd", index);
-    }];
+}];
 
 ```
 
