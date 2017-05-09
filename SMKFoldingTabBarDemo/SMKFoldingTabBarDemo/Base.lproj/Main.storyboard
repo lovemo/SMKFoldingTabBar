@@ -22,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我是中心按钮" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="99e-Iq-tiP">
-                                <rect key="frame" x="0.0" y="70" width="375" height="517"/>
+                                <rect key="frame" x="0.0" y="120" width="375" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -30,9 +30,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="QHo-Gu-Jz7" firstAttribute="top" secondItem="99e-Iq-tiP" secondAttribute="bottom" constant="80" id="K2T-VA-90s"/>
                             <constraint firstItem="99e-Iq-tiP" firstAttribute="leading" secondItem="m9y-E8-m1T" secondAttribute="leading" id="R7b-yC-517"/>
-                            <constraint firstItem="99e-Iq-tiP" firstAttribute="top" secondItem="lUX-gj-piY" secondAttribute="bottom" constant="50" id="RJW-SG-otb"/>
+                            <constraint firstItem="99e-Iq-tiP" firstAttribute="top" secondItem="lUX-gj-piY" secondAttribute="bottom" constant="100" id="RJW-SG-otb"/>
                             <constraint firstAttribute="trailing" secondItem="99e-Iq-tiP" secondAttribute="trailing" id="lva-Ev-LYT"/>
                         </constraints>
                     </view>
