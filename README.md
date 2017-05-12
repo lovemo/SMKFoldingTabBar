@@ -81,9 +81,9 @@ typedef NS_ENUM(NSUInteger, SMKFoldingTabBarState) {
     };
     
     foldingTabBar.leftItemLength = foldingTabBar.rightItemLength
-                                                            = foldingTabBar.leftButtonHeight
-                                                            = foldingTabBar.rightButtonHeight
-                                                            = 36;
+                                 = foldingTabBar.leftButtonHeight
+                                 = foldingTabBar.rightButtonHeight
+                                 = 36;
     foldingTabBar.leftImagesArray = @[
                                       @"new_umsocial_sina",
                                       @"new_umsocial_wechat",
