@@ -29,6 +29,12 @@
         make.centerY.mas_equalTo(self.view).multipliedBy(1.5);
     }];
     
+    foldingTabBar.animationParameters = (SMKAnimationParameters) {
+        .animationForCenterButtonExpandDuration = 0.4,
+        .animationForCenterButtonCollapseDuration = 0.4,
+        .animationForExtraItemShowDuration = 0.3,
+    };
+    
     foldingTabBar.leftItemLength = foldingTabBar.rightItemLength
                                                             = foldingTabBar.leftButtonHeight
                                                             = foldingTabBar.rightButtonHeight

@@ -10,6 +10,26 @@
 #import "UIView+SEKExtension.h"
 
 
+typedef struct {
+    
+    // 按钮收缩动画周期
+    CFTimeInterval animationForCenterButtonCollapseDuration;
+    
+    // 按钮展开动画周期
+    CFTimeInterval animationForCenterButtonExpandDuration;
+    
+    // 其他按钮展开动画周期
+    CFTimeInterval animationForExtraItemShowDuration;
+    
+    // 其他按钮缩放动画周期
+    CFTimeInterval animationForExtraItemScaleDuration;
+    
+    // 其他按钮抖动动画周期
+    CFTimeInterval animationForExtraItemRotationDuration;
+
+} SMKAnimationParameters;
+
+
 @class SMKFoldingTabBar;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -39,6 +59,38 @@ typedef NS_ENUM(NSUInteger, SMKFoldingTabBarState) {
 
 
 @interface SMKFoldingTabBar : UIView
+
+/**
+ *  文字大小
+ */
+@property (nonatomic, strong) UIFont *textFont;
+/**
+ *  其他按钮是否圆角矩形
+ */
+@property (nonatomic, assign) BOOL  isRoundExtraItem;
+/**
+ *  tabbar状态
+ */
+@property (nonatomic, assign) SMKFoldingTabBarState state;
+/**
+ *  代理
+ */
+@property (nonatomic, weak, nullable) id<SMKFoldingTabBarDelegate> delegate;
+
+/**
+ *  触摸中间按钮
+ */
+@property (nonatomic, copy) void(^didSelectCenterItemBlock)(UIButton *button);
+/**
+ *  触摸左边按钮
+ */
+@property (nonatomic, copy) void(^didSelectLeftItemBlock)(NSUInteger index);
+/**
+ *  触摸右边按钮
+ */
+@property (nonatomic, copy) void(^didSelectRightItemBlock)(NSUInteger index);
+
+@property (nonatomic, assign) SMKAnimationParameters  animationParameters;
 
 
 /**
@@ -131,36 +183,6 @@ typedef NS_ENUM(NSUInteger, SMKFoldingTabBarState) {
 @property (nonatomic, assign) CGFloat  rightItemLength;
 @property (nonatomic, assign) CGFloat  rightLeadSpacing;
 @property (nonatomic, assign) CGFloat  rightTailSpacing;
-
-/**
- *  文字大小
- */
-@property (nonatomic, strong) UIFont *textFont;
-/**
- *  其他按钮是否圆角矩形
- */
-@property (nonatomic, assign) BOOL  isRoundExtraItem;
-/**
- *  tabbar状态
- */
-@property (nonatomic, assign) SMKFoldingTabBarState state;
-/**
- *  代理
- */
-@property (nonatomic, weak, nullable) id<SMKFoldingTabBarDelegate> delegate;
-
-/**
- *  触摸中间按钮
- */
-@property (nonatomic, copy) void(^didSelectCenterItemBlock)(UIButton *button);
-/**
- *  触摸左边按钮
- */
-@property (nonatomic, copy) void(^didSelectLeftItemBlock)(NSUInteger index);
-/**
- *  触摸右边按钮
- */
-@property (nonatomic, copy) void(^didSelectRightItemBlock)(NSUInteger index);
 
 
 /**

@@ -70,6 +70,7 @@
     self.leftTextColor = self.rightTextColor = [UIColor blackColor];
     self.textFont = [UIFont systemFontOfSize:13];
     self.centerButtonBackColor = [UIColor orangeColor];
+    
 }
 
 - (void)testUI {
@@ -102,7 +103,7 @@
             [self.delegate tabBarWillExpand:self];
         }
         
-        [self animateCenterButtonCollapse:^{
+        [self animationForCenterButtonCollapse:^{
             [self showExtraLeftItem];
             [self showExtraRightItem];
         }];
@@ -147,7 +148,7 @@
         make.centerY.mas_equalTo(self);
     }];
     
-    [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:15 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView animateWithDuration:self.animationParameters.animationForCenterButtonExpandDuration delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:15 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         [self layoutIfNeeded];
         
     } completion:^(BOOL finished) {
@@ -170,14 +171,14 @@
     }];
 }
 
-- (void)animateCenterButtonCollapse:(void (^)())animationFinished {
+- (void)animationForCenterButtonCollapse:(void (^)())animationFinished {
     [self.centerButton mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self);
         self.centerButtonHeight ? make.width.height.mas_equalTo(self.centerButtonHeight) : make.width.height.mas_equalTo(self.mas_height).multipliedBy(1.0);
         make.centerY.mas_equalTo(self);
     }];
     
-    [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:15 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView animateWithDuration:self.animationParameters.animationForCenterButtonCollapseDuration delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:15 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         [self layoutIfNeeded];
         
     } completion:^(BOOL finished) {
@@ -199,8 +200,9 @@
         button.layer.anchorPoint = CGPointMake(0.5, 0.5);
         CGAffineTransform translation = CGAffineTransformMakeTranslation(lastButton.x - button.x, 0);
         button.transform = translation;
-        //        CGAffineTransform scale = CGAffineTransformMakeScale(0.4, 0.4);
-        //        button.transform = CGAffineTransformConcat(translation, scale);
+
+//        CGAffineTransform scale = CGAffineTransformMakeScale(0.4, 0.4);
+//        button.transform = CGAffineTransformConcat(translation, scale);
     }
     [self animationForExtraLeftItem:self.leftButtonsArray.count - 1];
     
@@ -210,13 +212,17 @@
     self.rightContentView.hidden = NO;
     [self resetButtonsAlpha:self.rightButtonsArray];
     UIButton *firstButton = self.rightButtonsArray.firstObject;
+
     for (UIButton *button in self.rightButtonsArray) {
         button.layer.anchorPoint = CGPointMake(0.5, 0.5);
-        CGAffineTransform translation = CGAffineTransformMakeTranslation(button.x - firstButton.x, 0);
+        CGAffineTransform translation = CGAffineTransformMakeTranslation(firstButton.x - button.x, 0);
         button.transform = translation;
-        //        CGAffineTransform scale = CGAffineTransformMakeScale(0.4, 0.4);
-        //        button.transform = CGAffineTransformConcat(translation, scale);
+
+//        CGAffineTransform scale = CGAffineTransformMakeScale(0.4, 0.4);
+//        button.transform = CGAffineTransformConcat(translation, scale);
     }
+
+    
     [self animationForExtraRightItem:0];
 }
 
@@ -247,7 +253,7 @@
     }
     UIButton *button = [self.leftButtonsArray objectAtIndex:index];
     
-    [UIView animateWithDuration:0.1 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:10 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView animateWithDuration:self.animationParameters.animationForExtraItemShowDuration delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:10 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         button.alpha = 1;
         button.transform = CGAffineTransformIdentity;
         
@@ -270,8 +276,9 @@
         self.userInteractionEnabled = YES;
         return;
     }
+
     UIButton *button = [self.rightButtonsArray objectAtIndex:index];
-    [UIView animateWithDuration:0.1 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:10 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView animateWithDuration:self.animationParameters.animationForExtraItemShowDuration delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:10 options:UIViewAnimationOptionCurveEaseOut animations:^{
         button.alpha = 1;
         button.transform = CGAffineTransformIdentity;
         
@@ -291,22 +298,24 @@
     CABasicAnimation *scaleX = [CABasicAnimation animationWithKeyPath:@"transform.scale.x"];
     scaleX.fromValue = @(0.4);
     scaleX.toValue = @(1);
-    scaleX.duration = 0.1;
+    scaleX.duration = self.animationParameters.animationForExtraItemScaleDuration;
     
     CABasicAnimation *scaleY = [CABasicAnimation animationWithKeyPath:@"transform.scale.y"];
     scaleY.fromValue = @(0.4);
     scaleY.toValue = @(1);
-    scaleY.duration = 0.1;
+    scaleY.duration = self.animationParameters.animationForExtraItemScaleDuration;
     
     CAKeyframeAnimation * rotation = [CAKeyframeAnimation animation];
     rotation.keyPath = @"transform.rotation";
     rotation.values = @[@(-10 / 180.0 * M_PI),@(10 /180.0 * M_PI),@(-10/ 180.0 * M_PI)];
     rotation.removedOnCompletion = YES;
     rotation.fillMode = kCAFillModeForwards;
-    rotation.duration = 0.2;
+    rotation.duration = self.animationParameters.animationForExtraItemRotationDuration;
     rotation.repeatCount = 2;
     
-    CAAnimation *anmi = [[self class] groupWithAnimations:@[scaleX, scaleY] andDuration:0.4];
+    CFTimeInterval duration = scaleX.duration + scaleY.duration + rotation.duration;
+    
+    CAAnimation *anmi = [[self class] groupWithAnimations:@[scaleX, scaleY] andDuration:duration];
     [view.layer addAnimation:anmi forKey:@"anmi"];
     [view.layer addAnimation:rotation forKey:@"rotation"];
     
@@ -366,6 +375,32 @@
 }
 
 #pragma mark --------------------  setter  --------------------
+
+- (void)setAnimationParameters:(SMKAnimationParameters)animationParameters {
+    
+    if (! animationParameters.animationForCenterButtonExpandDuration) {
+        animationParameters.animationForCenterButtonExpandDuration = 0.25;
+    }
+    
+    if (! animationParameters.animationForCenterButtonCollapseDuration) {
+        animationParameters.animationForCenterButtonCollapseDuration = 0.25;
+    }
+    
+    if (! animationParameters.animationForExtraItemShowDuration) {
+        animationParameters.animationForExtraItemShowDuration = 0.1;
+    }
+    
+    if (! animationParameters.animationForExtraItemScaleDuration) {
+        animationParameters.animationForExtraItemScaleDuration = 0.1;
+    }
+    
+    if (! animationParameters.animationForExtraItemRotationDuration) {
+        animationParameters.animationForExtraItemRotationDuration = 0.2;
+    }
+    
+    _animationParameters = animationParameters;
+    
+}
 
 - (void)setIsRoundExtraItem:(BOOL)isRoundExtraItem {
     _isRoundExtraItem = isRoundExtraItem;
