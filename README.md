@@ -1,8 +1,6 @@
 # SMKFoldingTabBar
 SMKFoldingTabBar - A Awesome Folding Custom View
 
----
-
 ![image](https://github.com/lovemo/SMKFoldingTabBar/raw/master/demo.gif)
 
 ---
