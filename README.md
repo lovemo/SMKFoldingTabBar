@@ -5,7 +5,7 @@ SMKFoldingTabBar - An Awesome Folding Custom View
 
 ---
 
-usage:
+#### usage:
 ```ruby
   pod 'SMKFoldingTabBar'
 ```
