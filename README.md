@@ -128,7 +128,7 @@ typedef NS_ENUM(NSUInteger, SMKFoldingTabBarState) {
 
 ---
 
-# Contributing to Tinker
+# Contributing to SMKFoldingTabBar
 Welcome to [report Issues](https://github.com/lovemo/SMKFoldingTabBar/issues) or [pull requests](https://github.com/lovemo/SMKFoldingTabBar/pulls) to SMKFoldingTabBar.
 
 ## License
