@@ -5,6 +5,11 @@ SMKFoldingTabBar - An Awesome Folding Custom View
 
 ---
 
+usage:
+```ruby
+  pod 'SMKFoldingTabBar'
+```
+
 ### Code
 ```objc
 typedef struct {
