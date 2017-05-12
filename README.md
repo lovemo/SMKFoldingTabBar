@@ -3,18 +3,82 @@ SMKFoldingTabBar - A Awesome Folding Custom View
 
 ---
 
-![image](https://github.com/lovemo/SMKFoldingTabBar/raw/master/test.gif)
+![image](https://github.com/lovemo/SMKFoldingTabBar/raw/master/demo.gif)
 
 ---
 
+#### Code
 ```objc
-SMKFoldingTabBar *foldingTabBar = [SMKFoldingTabBar foldingTabBar];
+typedef struct {
+    
+    // 按钮收缩动画周期
+    CFTimeInterval animationForCenterButtonCollapseDuration;
+    
+    // 按钮展开动画周期
+    CFTimeInterval animationForCenterButtonExpandDuration;
+    
+    // 其他按钮展开动画周期
+    CFTimeInterval animationForExtraItemShowDuration;
+    
+    // 其他按钮缩放动画周期
+    CFTimeInterval animationForExtraItemScaleDuration;
+    
+    // 其他按钮抖动动画周期
+    CFTimeInterval animationForExtraItemRotationDuration;
+
+} SMKAnimationParameters;
+
+
+@class SMKFoldingTabBar;
+
+NS_ASSUME_NONNULL_BEGIN
+
+@protocol SMKFoldingTabBarDelegate <NSObject>
+
+@optional
+
+- (void)tabBarWillCollapse:(SMKFoldingTabBar *)tabBar;
+- (void)tabBarWillExpand:(SMKFoldingTabBar *)tabBar;
+
+- (void)tabBarDidCollapse:(SMKFoldingTabBar *)tabBar;
+- (void)tabBarDidExpand:(SMKFoldingTabBar *)tabBar;
+
+- (void)tabBarDidSelectCenterItem:(SMKFoldingTabBar *)tabBar;
+
+- (void)tabBar:(SMKFoldingTabBar *)tabBar didSelectLeftItemAtIndex:(NSUInteger)index;
+- (void)tabBar:(SMKFoldingTabBar *)tabBar didSelectRightItemAtIndex:(NSUInteger)index;
+
+
+@end
+
+typedef NS_ENUM(NSUInteger, SMKFoldingTabBarState) {
+    SMKFoldingTabBarStateExpanded,
+    SMKFoldingTabBarStateCollapsed
+};
+
+
+@interface SMKFoldingTabBar : UIView
+
+// ......
+
+@end
+```
+
+#### Demo
+```objc
+    SMKFoldingTabBar *foldingTabBar = [SMKFoldingTabBar foldingTabBar];
     [self.view addSubview:foldingTabBar];
     [foldingTabBar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(self.view);
         make.height.mas_equalTo(49);
         make.centerY.mas_equalTo(self.view).multipliedBy(1.5);
     }];
+    
+    foldingTabBar.animationParameters = (SMKAnimationParameters) {
+        .animationForCenterButtonExpandDuration = 0.4,
+        .animationForCenterButtonCollapseDuration = 0.4,
+        .animationForExtraItemShowDuration = 0.3,
+    };
     
     foldingTabBar.leftItemLength = foldingTabBar.rightItemLength
                                                             = foldingTabBar.leftButtonHeight
@@ -55,7 +119,7 @@ SMKFoldingTabBar *foldingTabBar = [SMKFoldingTabBar foldingTabBar];
     [foldingTabBar setDidSelectRightItemBlock:^(NSUInteger index) {
         self.showTextLabel.text = [NSString stringWithFormat:@"我是右边第 %zd 个", index];
         NSLog(@"%zd", index);
-}];
+    }];
 
 ```
 
