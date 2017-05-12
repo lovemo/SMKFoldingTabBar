@@ -101,7 +101,10 @@ typedef NS_ENUM(NSUInteger, SMKFoldingTabBarState) {
     foldingTabBar.centerButtonText = @"分享";
     foldingTabBar.centerButtonTextFont = [UIFont systemFontOfSize:16];
     foldingTabBar.centerButtonBackColor = [UIColor blackColor];
-    foldingTabBar.centerButtonTextColor = [UIColor colorWithRed:255/255.f green:208/255.f blue:2/255.f alpha:1.f];
+    foldingTabBar.centerButtonTextColor = [UIColor colorWithRed:255/255.f 
+                                                   green:208/255.f 
+                                                   blue:2/255.f 
+                                                   alpha:1.f];
     foldingTabBar.centerButtonWidth = 454 * 0.5;
     foldingTabBar.isRoundCenterButton = YES;
     foldingTabBar.centerButtonHeight = 44;
@@ -128,7 +131,7 @@ typedef NS_ENUM(NSUInteger, SMKFoldingTabBarState) {
 
 ---
 
-# Contributing to SMKFoldingTabBar
+## Contributing to SMKFoldingTabBar
 Welcome to [report Issues](https://github.com/lovemo/SMKFoldingTabBar/issues) or [pull requests](https://github.com/lovemo/SMKFoldingTabBar/pulls) to SMKFoldingTabBar.
 
 ## License
