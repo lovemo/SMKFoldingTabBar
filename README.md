@@ -7,7 +7,7 @@ SMKFoldingTabBar - A Awesome Folding Custom View
 
 ---
 
-#### Code
+### Code
 ```objc
 typedef struct {
     
@@ -64,7 +64,7 @@ typedef NS_ENUM(NSUInteger, SMKFoldingTabBarState) {
 @end
 ```
 
-#### Demo
+### Demo
 ```objc
     SMKFoldingTabBar *foldingTabBar = [SMKFoldingTabBar foldingTabBar];
     [self.view addSubview:foldingTabBar];
