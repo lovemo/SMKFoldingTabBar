@@ -627,7 +627,7 @@
             make.centerY.mas_equalTo(self.rightContentView);
             make.height.mas_equalTo((self.rightButtonHeight > 0 ? self.rightButtonHeight : 32));
             make.width.mas_equalTo((self.rightItemLength > 0 ? self.rightItemLength : 32));
-            make.right.mas_equalTo(self.rightContentView).offset(-(self.rightTailSpacing ? self.rightTailSpacing : 8));
+            make.left.mas_equalTo(self.rightContentView).offset((self.leftTailSpacing ? self.leftTailSpacing : 8));
         }];
     }
     
@@ -666,7 +666,7 @@
             make.centerY.mas_equalTo(self.rightContentView);
             make.height.mas_equalTo((self.rightButtonHeight > 0 ? self.rightButtonHeight : 32));
             make.width.mas_equalTo((self.rightItemLength > 0 ? self.rightItemLength : 32));
-            make.right.mas_equalTo(self.rightContentView).offset(-(self.rightTailSpacing ? self.rightTailSpacing : 8));
+            make.left.mas_equalTo(self.rightContentView).offset((self.leftTailSpacing ? self.leftTailSpacing : 8));
         }];
     }
 }
