@@ -200,9 +200,9 @@
         button.layer.anchorPoint = CGPointMake(0.5, 0.5);
         CGAffineTransform translation = CGAffineTransformMakeTranslation(lastButton.x - button.x, 0);
         button.transform = translation;
-
-//        CGAffineTransform scale = CGAffineTransformMakeScale(0.4, 0.4);
-//        button.transform = CGAffineTransformConcat(translation, scale);
+        
+        //        CGAffineTransform scale = CGAffineTransformMakeScale(0.4, 0.4);
+        //        button.transform = CGAffineTransformConcat(translation, scale);
     }
     [self animationForExtraLeftItem:self.leftButtonsArray.count - 1];
     
@@ -212,16 +212,16 @@
     self.rightContentView.hidden = NO;
     [self resetButtonsAlpha:self.rightButtonsArray];
     UIButton *firstButton = self.rightButtonsArray.firstObject;
-
+    
     for (UIButton *button in self.rightButtonsArray) {
         button.layer.anchorPoint = CGPointMake(0.5, 0.5);
         CGAffineTransform translation = CGAffineTransformMakeTranslation(firstButton.x - button.x, 0);
         button.transform = translation;
-
-//        CGAffineTransform scale = CGAffineTransformMakeScale(0.4, 0.4);
-//        button.transform = CGAffineTransformConcat(translation, scale);
+        
+        //        CGAffineTransform scale = CGAffineTransformMakeScale(0.4, 0.4);
+        //        button.transform = CGAffineTransformConcat(translation, scale);
     }
-
+    
     
     [self animationForExtraRightItem:0];
 }
@@ -276,7 +276,7 @@
         self.userInteractionEnabled = YES;
         return;
     }
-
+    
     UIButton *button = [self.rightButtonsArray objectAtIndex:index];
     [UIView animateWithDuration:self.animationParameters.animationForExtraItemShowDuration delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:10 options:UIViewAnimationOptionCurveEaseOut animations:^{
         button.alpha = 1;
@@ -532,10 +532,12 @@
     }
     
     if (count > 1) {
+        CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
+        CGFloat margin = ((screenW * 0.5 - 16) - leftTitlesArray.count * (self.leftButtonHeight > 0 ? self.leftButtonHeight : 32)) / (leftTitlesArray.count + 1);
         [self.leftButtonsArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal
                                         withFixedItemLength:(self.leftItemLength ? self.leftItemLength : 32)
-                                                leadSpacing:(self.leftLeadSpacing ? self.leftLeadSpacing : 8)
-                                                tailSpacing: (self.leftTailSpacing ? self.leftTailSpacing : 8) ];
+                                                leadSpacing:(self.leftLeadSpacing ? self.leftLeadSpacing : margin)
+                                                tailSpacing: (self.leftTailSpacing ? self.leftTailSpacing : margin) ];
         [self.leftButtonsArray mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(self.leftContentView);
             make.height.mas_equalTo((self.leftButtonHeight > 0 ? self.leftButtonHeight : 32));
@@ -573,10 +575,12 @@
     }
     
     if (count > 1) {
+        CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
+        CGFloat margin = ((screenW * 0.5 - 16) - leftImagesArray.count * (self.leftButtonHeight > 0 ? self.leftButtonHeight : 32)) / (leftImagesArray.count + 1);
         [self.leftButtonsArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal
                                         withFixedItemLength:(self.leftItemLength ? self.leftItemLength : 32)
-                                                leadSpacing:(self.leftLeadSpacing ? self.leftLeadSpacing : 8)
-                                                tailSpacing: (self.leftTailSpacing ? self.leftTailSpacing : 8) ];
+                                                leadSpacing:(self.leftLeadSpacing ? self.leftLeadSpacing : margin)
+                                                tailSpacing: (self.leftTailSpacing ? self.leftTailSpacing : margin) ];
         [self.leftButtonsArray mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(self.leftContentView);
             make.height.mas_equalTo((self.leftButtonHeight > 0 ? self.leftButtonHeight : 32));
@@ -614,10 +618,12 @@
     }
     
     if (count > 1) {
+        CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
+        CGFloat margin = ((screenW * 0.5 - 16) - rightTitlesArray.count * (self.leftButtonHeight > 0 ? self.leftButtonHeight : 32)) / (rightTitlesArray.count + 1);
         [self.rightButtonsArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal
                                          withFixedItemLength:(self.rightItemLength ? self.rightItemLength : 32)
-                                                 leadSpacing:(self.rightLeadSpacing ? self.rightLeadSpacing : 8)
-                                                 tailSpacing: (self.rightTailSpacing ? self.rightTailSpacing : 8) ];
+                                                 leadSpacing:(self.rightLeadSpacing ? self.rightLeadSpacing : margin)
+                                                 tailSpacing: (self.rightTailSpacing ? self.rightTailSpacing : margin) ];
         [self.rightButtonsArray mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(self.rightContentView);
             make.height.mas_equalTo((self.rightButtonHeight > 0 ? self.rightButtonHeight : 32));
@@ -653,20 +659,24 @@
         [self.rightButtonsArray addObject:button];
     }
     if (count > 1) {
+        CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
+        CGFloat margin = ((screenW * 0.5 - 16) - rightImagesArray.count * (self.leftButtonHeight > 0 ? self.leftButtonHeight : 32)) / (rightImagesArray.count + 1);
         [self.rightButtonsArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal
                                          withFixedItemLength:(self.rightItemLength ? self.rightItemLength : 32)
-                                                 leadSpacing:(self.rightLeadSpacing ? self.rightLeadSpacing : 8)
-                                                 tailSpacing: (self.rightTailSpacing ? self.rightTailSpacing : 8) ];
+                                                 leadSpacing:(self.rightLeadSpacing ? self.rightLeadSpacing : margin)
+                                                 tailSpacing: (self.rightTailSpacing ? self.rightTailSpacing : margin) ];
         [self.rightButtonsArray mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(self.rightContentView);
             make.height.mas_equalTo((self.rightButtonHeight > 0 ? self.rightButtonHeight : 32));
         }];
     } else if (count == 1) {
+        
         [self.rightButtonsArray.firstObject mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(self.rightContentView);
             make.height.mas_equalTo((self.rightButtonHeight > 0 ? self.rightButtonHeight : 32));
             make.width.mas_equalTo((self.rightItemLength > 0 ? self.rightItemLength : 32));
             make.left.mas_equalTo(self.rightContentView).offset((self.leftTailSpacing ? self.leftTailSpacing : 8));
+            
         }];
     }
 }
